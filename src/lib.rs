@@ -23,6 +23,8 @@ impl Counter {
     #[init]
     pub fn new(owner: AccountId) -> Self {
         let mut res = Self { counter: 0 };
+        // setup_owner();
+
         res.set_owner(owner);
         res
     }
@@ -31,14 +33,13 @@ impl Counter {
         self.counter
     }
 
-    #[check_only(self, owner)]
-    #[pause]
     pub fn increase_counter(&mut self) {
         self.counter += 1;
     }
 
     #[check_only(self, owner)]
     #[pause(allow_admin)]
+    #[protected]
     pub fn increase_counter2(&mut self) {
         self.counter += 1;
     }
